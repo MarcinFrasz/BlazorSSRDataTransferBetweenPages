@@ -1,0 +1,14 @@
+﻿@page "/page-2"
+
+/page-2?msg=ffgtghger
+
+<h3>Page2</h3>
+<h3>Status from query string= @Status</h3>
+<h4>Message from query string= @Message</h4>
+@code {
+    [SupplyParameterFromQuery(Name ="msg")]
+    public string Message { get; set; }
+
+    [SupplyParameterFromQuery]
+    public string Status { get; set; }
+}
