@@ -38,5 +38,10 @@
     {
         //var messageFromCookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == CookieName).Value;
         _messageFromCookie = HttpContext.Request.Cookies[CookieName];
+        if (_messageFromCookie is not null)
+        {
+            //If it was one time use cookie then we should remove it after use
+            HttpContext.Response.Cookies.Delete(CookieName);
+        }
     }
 }
