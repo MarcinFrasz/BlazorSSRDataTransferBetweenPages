@@ -3,12 +3,40 @@
 /page-2?msg=ffgtghger
 
 <h3>Page2</h3>
-<h3>Status from query string= @Status</h3>
-<h4>Message from query string= @Message</h4>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>From query string</h3>
+            <h6>Status from query string= @Status</h6>
+            <h6>Message from query string= @Message</h6>
+        </div>
+
+        <div class="col-sm-6">
+            <h3>From Cookie</h3>
+            <h6>Username: @_messageFromCookie</h6>
+        </div>
+    </div>
+</div>
+
 @code {
+
+    private const string CookieName = "my-data";
     [SupplyParameterFromQuery(Name ="msg")]
     public string Message { get; set; }
 
     [SupplyParameterFromQuery]
     public string Status { get; set; }
+
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    private string? _messageFromCookie;
+
+    protected override void OnInitialized()
+    {
+        //var messageFromCookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == CookieName).Value;
+        _messageFromCookie = HttpContext.Request.Cookies[CookieName];
+    }
 }

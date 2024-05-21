@@ -1,30 +1,24 @@
 ﻿@page "/"
+@using BlazorSSRDataTransferBetweenPages.Components.Shared
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Transfer data between pages Blazor SSR</h1>
 
 
-<a href="/page-2?msg=My message from home page&status=Success"> Go to page 2 with query string data </a>
-<br />
-<a href="/page-2?msg=@_message&status=@_status"> Go to page 2 with dynamic query string data </a>
+<div class="container">
+    <div class="row">
+    <div class="col-sm-6">
+        <TransferDataUsingQueryString />
+    </div>
+    <div class="col-sm-6">
+        <TransferDataUsingCookies />
+    </div>
+    </div>
+</div>
 
-@code{
-    private string _status="pending";
-    private string? _message;
 
-    protected override void OnInitialized()
-    {
-        try
-        {
-            _message = "Data received";
-            _status="Success";
-        }
-        catch(Exception ex)
-        {
-            _message = ex.Message;
-            _status = "Error";
-            throw;
-        }
-    }
-}
+<h2>Query String</h2>
+
+
+
