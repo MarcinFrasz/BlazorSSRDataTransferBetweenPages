@@ -6,3 +6,25 @@
 
 
 <a href="/page-2?msg=My message from home page&status=Success"> Go to page 2 with query string data </a>
+<br />
+<a href="/page-2?msg=@_message&status=@_status"> Go to page 2 with dynamic query string data </a>
+
+@code{
+    private string _status="pending";
+    private string? _message;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            _message = "Data received";
+            _status="Success";
+        }
+        catch(Exception ex)
+        {
+            _message = ex.Message;
+            _status = "Error";
+            throw;
+        }
+    }
+}
