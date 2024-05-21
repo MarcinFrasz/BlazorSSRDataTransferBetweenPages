@@ -1,9 +1,11 @@
-﻿<h3>Transfer Data Using Cookies</h3>
+﻿@using System.Text.Json
+<h3>Transfer Data Using Cookies</h3>
 <h6>Username= @_username</h6>
 
 
 @code {
     private const string CookieName = "my-data";
+    private const string UserNameCookie = "my-username";
     private string _username = "MF";
 
 
@@ -11,8 +13,13 @@
     [CascadingParameter]
     public HttpContext HttpContext{ get; set; }
 
+
     protected override void OnInitialized()
     {
         HttpContext.Response.Cookies.Append(CookieName, _username);
+
+        //get data from db
+        var appModel = new AppModel("Passing data",2);
+        HttpContext.Response.Cookies.Append(CookieName,JsonSerializer.Serialize(appModel));
     }
 }
